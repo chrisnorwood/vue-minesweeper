@@ -1,0 +1,103 @@
+@import 'reset';
+@import 'mixins';
+
+*, *:before, *:after {
+  @include box-sizing(border-box);
+}
+
+body {
+  background-color: #FFE7E9;
+}
+
+.game {
+  display: block;
+  width: 60vw;
+  max-width: 60vw;
+  padding-bottom: 30px;
+  margin: 30px auto 0 auto;
+  .row {
+    // float: left;
+    display: block;
+    width: 100%;
+    padding: 0 0;
+    
+    .tile {
+      // float: left;
+      position: relative;
+      margin: 4px;
+      height: 0;
+      width: 3.58%;
+      padding-bottom: 4%;
+      display: inline-block;
+      border-radius: 2px;
+      background-color: #ff5056;
+
+      @include box-shadow(4px 4px 0 0 rgba(42, 14, 14, 0.8));
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        @include box-shadow(6px 6px 0 0px rgba(42, 14, 14, 0.9));
+        transform: translate(-2px,-2px);
+      }
+    }
+
+    .opened {
+      background-color: #FFC5C8;
+      transform: translate(2px,2px);
+      @include box-shadow(3px 3px 0 0 rgba(42, 14, 14, 0.8));
+      &:hover {
+        @include box-shadow(3px 3px 0 0 rgba(42, 14, 14, 0.8));
+        transform: translate(2px,2px);
+      }
+    }
+
+    .mined {
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDUxMiA1MTIiIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiPgogIDxnPgogICAgPHBhdGggZD0ibTQxMS4zMTMsMTIzLjMxM2M2LjI1LTYuMjUgNi4yNS0xNi4zNzUgMC0yMi42MjVzLTE2LjM3NS02LjI1LTIyLjYyNSwwbC0zMiwzMi05LjM3NSw5LjM3NS0yMC42ODgtMjAuNjg4Yy0xMi40ODQtMTIuNS0zMi43NjYtMTIuNS00NS4yNSwwbC0xNiwxNmMtMS4yNjEsMS4yNjEtMi4zMDQsMi42NDgtMy4zMSw0LjA1MS0yMS43MzktOC41NjEtNDUuMzI0LTEzLjQyNi03MC4wNjUtMTMuNDI2LTEwNS44NjcsMC0xOTIsODYuMTMzLTE5MiwxOTJzODYuMTMzLDE5MiAxOTIsMTkyIDE5Mi04Ni4xMzMgMTkyLTE5MmMwLTI0Ljc0MS00Ljg2NC00OC4zMjctMTMuNDI2LTcwLjA2NSAxLjQwMi0xLjAwNyAyLjc5LTIuMDQ5IDQuMDUxLTMuMzFsMTYtMTZjMTIuNS0xMi40OTIgMTIuNS0zMi43NTggMC00NS4yNWwtMjAuNjg4LTIwLjY4OCA5LjM3NS05LjM3NSAzMi4wMDEtMzEuOTk5em0tMjE5LjMxMywxMDAuNjg3Yy01Mi45MzgsMC05Niw0My4wNjMtOTYsOTYgMCw4LjgzNi03LjE2NCwxNi0xNiwxNnMtMTYtNy4xNjQtMTYtMTZjMC03MC41NzggNTcuNDIyLTEyOCAxMjgtMTI4IDguODM2LDAgMTYsNy4xNjQgMTYsMTZzLTcuMTY0LDE2LTE2LDE2eiIgZmlsbD0iIzQyMTUxNiIvPgogICAgPHBhdGggZD0ibTQ1OS4wMiwxNDguOThjLTYuMjUtNi4yNS0xNi4zNzUtNi4yNS0yMi42MjUsMHMtNi4yNSwxNi4zNzUgMCwyMi42MjVsMTYsMTZjMy4xMjUsMy4xMjUgNy4yMTksNC42ODggMTEuMzEzLDQuNjg4IDQuMDk0LDAgOC4xODgtMS41NjMgMTEuMzEzLTQuNjg4IDYuMjUtNi4yNSA2LjI1LTE2LjM3NSAwLTIyLjYyNWwtMTYuMDAxLTE2eiIgZmlsbD0iIzQyMTUxNiIvPgogICAgPHBhdGggZD0ibTM0MC4zOTUsNzUuNjA1YzMuMTI1LDMuMTI1IDcuMjE5LDQuNjg4IDExLjMxMyw0LjY4OCA0LjA5NCwwIDguMTg4LTEuNTYzIDExLjMxMy00LjY4OCA2LjI1LTYuMjUgNi4yNS0xNi4zNzUgMC0yMi42MjVsLTE2LTE2Yy02LjI1LTYuMjUtMTYuMzc1LTYuMjUtMjIuNjI1LDBzLTYuMjUsMTYuMzc1IDAsMjIuNjI1bDE1Ljk5OSwxNnoiIGZpbGw9IiM0MjE1MTYiLz4KICAgIDxwYXRoIGQ9Im00MDAsNjRjOC44NDQsMCAxNi03LjE2NCAxNi0xNnYtMzJjMC04LjgzNi03LjE1Ni0xNi0xNi0xNi04Ljg0NCwwLTE2LDcuMTY0LTE2LDE2djMyYzAsOC44MzYgNy4xNTYsMTYgMTYsMTZ6IiBmaWxsPSIjNDIxNTE2Ii8+CiAgICA8cGF0aCBkPSJtNDk2LDk2LjU4NmgtMzJjLTguODQ0LDAtMTYsNy4xNjQtMTYsMTYgMCw4LjgzNiA3LjE1NiwxNiAxNiwxNmgzMmM4Ljg0NCwwIDE2LTcuMTY0IDE2LTE2IDAtOC44MzYtNy4xNTYtMTYtMTYtMTZ6IiBmaWxsPSIjNDIxNTE2Ii8+CiAgICA8cGF0aCBkPSJtNDM2Ljk4LDc1LjYwNWMzLjEyNSwzLjEyNSA3LjIxOSw0LjY4OCAxMS4zMTMsNC42ODggNC4wOTQsMCA4LjE4OC0xLjU2MyAxMS4zMTMtNC42ODhsMzItMzJjNi4yNS02LjI1IDYuMjUtMTYuMzc1IDAtMjIuNjI1cy0xNi4zNzUtNi4yNS0yMi42MjUsMGwtMzIsMzJjLTYuMjUxLDYuMjUtNi4yNTEsMTYuMzc1LTAuMDAxLDIyLjYyNXoiIGZpbGw9IiM0MjE1MTYiLz4KICA8L2c+Cjwvc3ZnPgo=);
+    }
+
+    .one, .two, .three, .four, .five, .six, .seven, .eight {
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 24px 24px;
+    }
+
+    .one {
+      background-image: url('../assets/one.png');
+    }
+
+    .two {
+      background-image: url('../assets/two.png');
+    }
+
+    .three {
+      background-image: url('../assets/three.png');
+    }
+
+    .four {
+      background-image: url('../assets/four.png');
+    }
+
+    .five {
+      background-image: url('../assets/five.png');
+    }
+
+    .six {
+      background-image: url('../assets/six.png');
+    }
+
+    .seven {
+      background-image: url('../assets/seven.png');
+    }
+
+    .eight {
+      background-image: url('../assets/eight.png');
+    }
+
+  }
+
+  &:after {
+    @include clearfix;
+  }
+}
