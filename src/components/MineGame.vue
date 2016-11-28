@@ -1,41 +1,32 @@
 <template>
-  <section class="game">
+  <section class="game" oncontextmenu="return false;">
     <div class="row"
          v-for="row in tiles">
       <div class="tile"
            v-for="tile in row"
-           :class="tile.classes"
-           @click="openTile(tile)">
+           :class="[tile.classes, {'flagged': tile.flagged}]"
+           @click="openTile(tile)"
+           @contextmenu="flagTile(tile)">
       </div>
     </div>
+    <transition name="fade">
+      <section class="game-over" v-if="gameOver">
+        <span>GAME OVER</span>
+        <span>Try again!</span>
+      </section>
+    </transition>
   </section>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      rows: 15,
-      columns: 20,
-      tiles: [],
-    }
-  },
-  created() {
-    this.initTiles();
-  },
+  props: [
+    'rows', 
+    'columns', 
+    'tiles',
+    'gameOver',
+  ],
   methods: {
-    initTiles() {
-      this.tiles = new Array(this.rows).fill(0).map((row, rowIndex) => {
-        return new Array(this.columns).fill(0).map((column, columnIndex) => {
-          return {
-            row: rowIndex,
-            column: columnIndex,
-            classes: [],
-            mined: (Math.random() * 6 > 5),
-          }
-        })
-      });
-    },
     openAllMines() {
       this.tiles.forEach(row => {
         row.forEach(tile => {
@@ -52,9 +43,12 @@ export default {
         return true;
       }
     },
+    flagTile(tile) {
+      tile.flagged = !tile.flagged;
+    },
     openTile(tile, recursive=true) {
       // Only consider if the tile has not been touched
-      if (!this.isOpened(tile)) {
+      if (!this.isOpened(tile) && !this.gameOver) {
         // Open the tile
         if (tile.classes.indexOf('opened') < 0) {
           tile.classes.push('opened');
@@ -63,6 +57,8 @@ export default {
         if (tile.mined) {
           tile.classes.push('mined');
           this.openAllMines();
+
+          this.$emit('gameIsOver');
           return;
         }
   
