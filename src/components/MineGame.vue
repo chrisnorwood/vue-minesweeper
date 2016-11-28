@@ -82,7 +82,11 @@ export default {
           neighbors.forEach((neighborTile) => {
             // Do not open next neighbor recursively by default
             // It will check if it should during next pass
-            this.openTile(neighborTile, false);
+            // Open with timeout for looks :)
+            var vm = this;
+            setTimeout(() => {
+              vm.openTile(neighborTile, false);
+            }, 2);
           });
         }
       }
@@ -91,7 +95,6 @@ export default {
       // [[x, y]] relative coordinates
       const adjacentPositions = [[-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0]];
       let neighbors = [];
-
       
       adjacentPositions.forEach((position) => {
         let shiftRow = position[0];

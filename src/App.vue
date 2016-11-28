@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header></header>
+    <app-header></app-header>
     <mine-game></mine-game>
   </div>
 </template>
@@ -13,6 +13,7 @@ export default {
   name: 'app',
   components: {
     mineGame: MineGame,
+    appHeader: Header,
   },
 }
 </script>
