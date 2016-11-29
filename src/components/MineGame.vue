@@ -12,7 +12,7 @@
     <transition name="fade">
       <section class="game-over" v-if="gameOver">
         <span>GAME OVER</span>
-        <span>Try again!</span>
+        <button @click="newGame">Play Again</button>
       </section>
     </transition>
   </section>
@@ -25,6 +25,7 @@ export default {
     'columns', 
     'tiles',
     'gameOver',
+    'firstPlay',
   ],
   methods: {
     openAllMines() {
@@ -47,6 +48,9 @@ export default {
       tile.flagged = !tile.flagged;
     },
     openTile(tile, recursive=true) {
+      if (this.firstPlay) {
+        this.newGame();
+      }
       // Only consider if the tile has not been touched
       if (!this.isOpened(tile) && !this.gameOver) {
         // Open the tile
@@ -121,6 +125,9 @@ export default {
       });
       return count;
     },
+    newGame() {
+      this.$emit('newGame');
+    }
   },
 }
 </script>

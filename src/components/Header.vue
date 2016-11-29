@@ -4,12 +4,13 @@
       <div class="brand">
         <h1>Minesweeper</h1>
       </div>
-      <div class="info">| Right-click to flag tile |</div>
+      <div class="info">Right-click to flag tile</div>
       <div class="menu">
         <div class="menu">
-        <button @click="newGame" v-if="gameOver">New Game</button>
-        <button @click="newGame" v-else>Reset</button>
-      </div>
+          <button class="timer">{{ timer }}</button>
+          <button @click="newGame" v-if="gameOver || firstPlay">New Game</button>
+          <button @click="newGame" v-else>Reset</button>
+        </div>
       </div>
     </nav>
   </header>
@@ -18,7 +19,9 @@
 <script>
 export default {
   props: [
-    'gameOver'
+    'gameOver',
+    'timer',
+    'firstPlay',
   ],
   methods: {
     newGame() {

@@ -1,14 +1,21 @@
 <template>
   <div id="app">
-    <app-header @newGame="newGame" :gameOver="gameOver"></app-header>
+    <app-header 
+      @newGame="newGame" 
+      :gameOver="gameOver" 
+      :timer="timer" 
+      :firstPlay="firstPlay">  
+    </app-header>
     <transition name="fade" mode="out-in" appear>
       <mine-game 
         v-if="displayGame" 
         @gameIsOver="endGame"
+        @newGame="newGame"
         :rows="rows"
         :columns="columns"
         :tiles="tiles"
-        :gameOver="gameOver">  
+        :gameOver="gameOver"
+        :firstPlay="firstPlay">  
       </mine-game>
     </transition>
   </div>
@@ -24,8 +31,12 @@ export default {
       rows: 15,
       columns: 20,
       tiles: [],
+      gameStart: 0,
+      elapsedTime: 0,
+      windowTimer: null,
       displayGame: true,
       gameOver: false,
+      firstPlay: true,
     }
   },
   name: 'app',
@@ -33,13 +44,33 @@ export default {
     mineGame: MineGame,
     appHeader: Header,
   },
+  computed: {
+    timer() {
+      let totalSeconds = Math.floor(this.elapsedTime/1000);
+      let minutes = Math.floor(totalSeconds/60);
+      let seconds = totalSeconds - (minutes * 60);
+
+      if (minutes.toString().length == 1) {
+        minutes = '0' + minutes;
+      }
+
+      if (seconds.toString().length == 1) {
+        seconds = '0' + seconds;
+      }
+      
+      return minutes + ':' + seconds;
+    },
+  },
   methods: {
     newGame() {
-      this.displayGame = true;
+      this.firstPlay = false;
       this.gameOver = false;
       this.initTiles();
+      this.startTimer();
     },
     endGame() {
+      clearInterval(this.windowTimer);
+      this.windowTimer = null;
       this.gameOver = true;
     },
     initTiles() {
@@ -54,6 +85,12 @@ export default {
           }
         })
       });
+    },
+    startTimer() {
+      this.gameStart = new Date().getTime();
+      this.windowTimer = setInterval(() => {
+        this.elapsedTime = (new Date().getTime() - this.gameStart);
+      }, 1000);
     },
   },
   created() {
