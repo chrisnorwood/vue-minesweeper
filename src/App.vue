@@ -81,7 +81,7 @@ export default {
             column: columnIndex,
             classes: [],
             flagged: false,
-            mined: (Math.random() * 6 > 5),
+            mined: (Math.random() * 10 > 9),
           }
         })
       });

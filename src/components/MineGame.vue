@@ -5,7 +5,7 @@
       <div class="tile"
            v-for="tile in row"
            :class="[tile.classes, {'flagged': tile.flagged}]"
-           @click="openTile(tile)"
+           @click="openTile(tile, true)"
            @contextmenu="flagTile(tile)">
       </div>
     </div>
@@ -32,7 +32,8 @@ export default {
       this.tiles.forEach(row => {
         row.forEach(tile => {
           if (tile.mined) {
-            this.openTile(tile, false);
+            // this.openTile(tile, false);
+            tile.classes.push('mined');
           }
         });
       });
@@ -47,10 +48,22 @@ export default {
     flagTile(tile) {
       tile.flagged = !tile.flagged;
     },
-    openTile(tile, recursive=true) {
+    openTile(tile, recursive=false) {
       if (this.firstPlay) {
         this.newGame();
+        return;
       }
+
+      console.log('openTile');
+
+      // TESTING Only
+        let total = 0;
+        this.tiles.forEach((row) => {
+          total += this.countMines(row);
+        });
+        console.log('Total Mines: '+total);
+      // TESTING only
+
       // Only consider if the tile has not been touched
       if (!this.isOpened(tile) && !this.gameOver) {
         // Open the tile
@@ -60,32 +73,32 @@ export default {
 
         if (tile.mined) {
           tile.classes.push('mined');
-          this.openAllMines();
-
           this.$emit('gameIsOver');
+          this.openAllMines();
           return;
         }
   
         let neighbors = this.collectNeighbors(tile);
         let neighboringMines = this.countMines(neighbors);
+        let noNeighboringMines = false;
         if (neighboringMines > 0) {
           let warningKey = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven', 8: 'eight'};
           tile.classes.push(warningKey[neighboringMines]);
           return;
         } else {
           // Should continue opening tiles recursively
-          recursive = true;
+          noNeighboringMines = true;
         }
         
         // Open tiles recursively
-        if (recursive) {
+        if (noNeighboringMines && recursive) {
           neighbors.forEach((neighborTile) => {
             // Do not open next neighbor recursively by default
             // It will check if it should during next pass
             // Open with timeout for looks :)
             var vm = this;
             setTimeout(() => {
-              vm.openTile(neighborTile, false);
+              vm.openTile(neighborTile, true);
             }, 2);
           });
         }
