@@ -86,6 +86,13 @@ export default {
       this.difficulty = level;
       this.newGame();
     },
+    mineProbability() {
+      let diffToProb = { 1: [10,9], 2: [8,7], 3: [6,5] };
+      let timesFactor = diffToProb[this.difficulty][0];
+      let compareFactor = diffToProb[this.difficulty][1];
+
+      return (Math.random() * timesFactor > compareFactor);
+    },
     initTiles() {
       this.tiles = new Array(this.rows).fill(0).map((row, rowIndex) => {
         return new Array(this.columns).fill(0).map((column, columnIndex) => {
@@ -94,7 +101,7 @@ export default {
             column: columnIndex,
             classes: [],
             flagged: false,
-            mined: (Math.random() * 10 > 9),
+            mined: this.mineProbability(),
           }
         })
       });

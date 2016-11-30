@@ -54,16 +54,6 @@ export default {
         return;
       }
 
-      console.log('openTile');
-
-      // TESTING Only
-        let total = 0;
-        this.tiles.forEach((row) => {
-          total += this.countMines(row);
-        });
-        console.log('Total Mines: '+total);
-      // TESTING only
-
       // Only consider if the tile has not been touched
       if (!this.isOpened(tile) && !this.gameOver) {
         // Open the tile
