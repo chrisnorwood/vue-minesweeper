@@ -20,7 +20,7 @@ button {
   @include box-shadow(4px 4px 0 0 rgba(42, 14, 14, 0.8));
   transition: all 0.2s ease-in-out;
 
-  &:hover {
+  &:hover, .active {
     @include box-shadow(6px 6px 0 0px rgba(42, 14, 14, 0.9));
     transform: translate(-2px,-2px);
   }
