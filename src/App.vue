@@ -20,6 +20,15 @@
         :firstPlay="firstPlay">  
       </mine-game>
     </transition>
+    <footer>
+      <p>
+        Chris Norwood
+        <a href="https://github.com/chrisnorwood/vue-minesweeper">
+          <span class="github"></span>
+        </a>
+        2016 (Vue.js 2.0)
+      </p>
+    </footer>
   </div>
 </template>
 
