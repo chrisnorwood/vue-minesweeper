@@ -1,0 +1,10 @@
+{
+ "name": "vue-minesweeper",
+ "version": "1.0.0",
+ "description": "vue.js minesweeper",
+ "author": "Chris Norwood",
+ "private": true,
+ "scripts": {
+   "postinstall": "npm install express"
+ }
+}
