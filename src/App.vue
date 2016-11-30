@@ -1,10 +1,12 @@
 <template>
   <div id="app">
     <app-header 
-      @newGame="newGame" 
+      @newGame="newGame"
+      @setDiff="setDiff" 
       :gameOver="gameOver" 
       :timer="timer" 
-      :firstPlay="firstPlay">  
+      :firstPlay="firstPlay"
+      :difficulty="difficulty">  
     </app-header>
     <transition name="fade" mode="out-in" appear>
       <mine-game 
@@ -28,8 +30,7 @@ import MineGame from './components/MineGame.vue';
 export default {
   data() {
     return {
-      rows: 15,
-      columns: 20,
+      difficulty: 2,
       tiles: [],
       gameStart: 0,
       elapsedTime: 0,
@@ -45,6 +46,14 @@ export default {
     appHeader: Header,
   },
   computed: {
+    rows() {
+      let diffToRow = { 1: 8, 2: 12, 3: 15 };
+      return diffToRow[this.difficulty];
+    },
+    columns() {
+      let diffToCol = { 1: 10, 2: 15, 3: 20 };
+      return diffToCol[this.difficulty];
+    },
     timer() {
       let totalSeconds = Math.floor(this.elapsedTime/1000);
       let minutes = Math.floor(totalSeconds/60);
@@ -72,6 +81,10 @@ export default {
       clearInterval(this.windowTimer);
       this.windowTimer = null;
       this.gameOver = true;
+    },
+    setDiff(level) {
+      this.difficulty = level;
+      this.newGame();
     },
     initTiles() {
       this.tiles = new Array(this.rows).fill(0).map((row, rowIndex) => {
