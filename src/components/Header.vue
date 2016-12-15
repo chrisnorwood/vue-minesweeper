@@ -8,11 +8,11 @@
       <div class="menu">
         <ul>
           <li>
-            <button class="timer">{{ timer }}</button>
+            <button class="timer">{{timer}}</button>
           </li>
           <li>
-            <button @click="newGame" v-if="gameOver || firstPlay">Start</button>
-            <button @click="newGame" v-else>Reset</button>
+            <button class="reset-button" @click="newGame" v-if="gameOver || firstPlay">Start</button>
+            <button class="reset-button" @click="newGame" v-else>Reset</button>
           </li>
           <li class="dropdown-menu">
             <button 

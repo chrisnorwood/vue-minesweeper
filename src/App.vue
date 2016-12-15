@@ -75,7 +75,7 @@ export default {
       if (seconds.toString().length == 1) {
         seconds = '0' + seconds;
       }
-      
+      console.log(minutes + ':' + seconds);
       return minutes + ':' + seconds;
     },
   },
