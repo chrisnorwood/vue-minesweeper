@@ -22,7 +22,7 @@
     </transition>
     <footer>
       <p>
-        Chris Norwood
+        <a href="http://chrisnorwood.io">Chris Norwood</a>
         <a href="https://github.com/chrisnorwood/vue-minesweeper">
           <span class="github"></span>
         </a>
