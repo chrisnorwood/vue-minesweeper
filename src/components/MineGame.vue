@@ -11,7 +11,9 @@
     </div>
     <transition name="fade">
       <section class="game-over" v-if="gameOver">
-        <span>GAME OVER</span>
+        <span v-if="gameWon">YOU WON!!</span>
+        <span v-else>GAME OVER</span>
+
         <button @click="newGame">Play Again</button>
       </section>
     </transition>
@@ -27,6 +29,11 @@ export default {
     'gameOver',
     'firstPlay',
   ],
+  data() {
+    return {
+      gameWon: false
+    }
+  },
   methods: {
     openAllMines() {
       this.tiles.forEach(row => {
@@ -37,6 +44,17 @@ export default {
           }
         });
       });
+    },
+    checkWin() {
+      let status = true;
+      this.tiles.forEach(row => {
+        row.forEach(tile => {
+          if (!this.isOpened(tile) && !tile.mined) {
+            status = false;
+          }
+        });
+      });
+      return status;
     },
     isOpened(tile) {
       if (tile.classes.indexOf('opened') < 0) {
@@ -59,6 +77,11 @@ export default {
         // Open the tile
         if (tile.classes.indexOf('opened') < 0) {
           tile.classes.push('opened');
+        }
+
+        if (this.checkWin()) {
+          this.gameWon = true;
+          this.$emit('gameIsOver');
         }
 
         if (tile.mined) {
@@ -129,6 +152,7 @@ export default {
       return count;
     },
     newGame() {
+      this.gameWon = false;
       this.$emit('newGame');
     }
   },
