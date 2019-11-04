@@ -22,4 +22,11 @@ npm run build
 
 # Deploy '/dist' folder to heroku master
 npm run deploy
+
+# Deploy to gh-pages branch of repository, for serving via Github pages
+git subtree push --prefix dist origin gh-pages
+## webpack is hrefing assets to /static/... , rather than static/... , which breaks on gh-pages subdirectory,
+## unless you manually update these in the dist/index folder before pushing
 ```
+
+
