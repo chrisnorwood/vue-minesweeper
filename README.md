@@ -4,8 +4,11 @@ This clone of the classic game, "Minesweeper", was built over a weekend using Vu
 
 This is my first real project using a newer Javascript framework, and I created this right after finishing [Maximilian Schwarzmüller's Vue Tutorial](https://www.udemy.com/vuejs-2-the-complete-guide).
 
-### Live Demo: [View on Heroku!](https://vue-minesweeper.herokuapp.com/)
+## Live Demo:
 
+[View Live](https://chrisnorwood.io/vue-minesweeper)
+
+## Preview: 
 ![vue-minesweeper](https://cloud.githubusercontent.com/assets/18252139/20769454/d0252838-b6f6-11e6-9731-c76e4c111bbd.png)
 
 ## Build Setup
